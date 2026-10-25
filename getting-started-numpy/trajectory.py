@@ -11,18 +11,14 @@ traj[:, 0] = x
 traj[:, 1] = y
 traj[:, 2] = z
 
-print("Trajectory shape:", traj.shape)
-print("Time shape:", t.shape)
-print("Trajectory size:", traj.size)
-print("Time size:", t.size)
-print("Trajectory dimensions:", traj.ndim)
-print("Time dimensions:", t.ndim)
-print("Trajectory data type:", traj.dtype)
-print("Time data type:", t.dtype)
+z_threshold = 3.0
+mask = traj[:, 2] > z_threshold
+low_altitude_points = traj[mask, :]
 
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
 ax.plot(x,y,z, 'b-', label='Trajectory')
+ax.scatter(low_altitude_points[:, 0], low_altitude_points[:, 1], low_altitude_points[:, 2], c='r', label='Low Altitude Points')
 ax.set_xlabel('km')
 ax.set_ylabel('km')
 ax.set_zlabel('km')
